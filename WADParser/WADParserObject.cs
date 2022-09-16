@@ -104,6 +104,17 @@
         }
 
         /// <summary>
+        /// Sets the WAD type used in the header.  Valid types for saving files are "IWAD" and "PWAD"
+        /// Note that this is not meant to be used when loading files.  This is for assembling a WAD from scratch.
+        /// </summary>
+        /// <param name="newType">The wad type to save as</param>
+        public void SetWadType(string newType)
+        {
+            if (newType != null && (m_wadType == "IWAD" || m_wadType == "PWAD" || m_wadType.Length == 0))
+                m_wadType = newType;
+        }
+
+        /// <summary>
         /// Gets a reference to the lump at the given index
         /// </summary>
         /// <param name="index">The index to pull the lump from</param>
