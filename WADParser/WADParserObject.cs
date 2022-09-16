@@ -1,5 +1,12 @@
 ﻿namespace WADParser
 {
+    public enum WadTypeEnum
+    {
+        IWAD,
+        PWAD,
+        None
+    }
+
     public class WADParserObject
     {
         const int WADHEADER_SIZE = 12;
@@ -109,10 +116,21 @@
         /// Note that this is not meant to be used when loading files.  This is for assembling a WAD from scratch.
         /// </summary>
         /// <param name="newType">The wad type to save as</param>
-        public void SetWadType(string newType)
+        public void SetWadType(WadTypeEnum newType)
         {
-            if (newType != null && (m_wadType == "IWAD" || m_wadType == "PWAD" || m_wadType.Length == 0))
-                m_wadType = newType;
+            switch(newType)
+            {
+                case WadTypeEnum.IWAD:
+                    m_wadType = "IWAD";
+                    break;
+                case WadTypeEnum.PWAD:
+                    m_wadType = "PWAD";
+                    break;
+                case WadTypeEnum.None:
+                default:
+                    m_wadType = "";
+                    break;
+            }
         }
 
         /// <summary>
