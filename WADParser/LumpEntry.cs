@@ -37,6 +37,7 @@ namespace WADParser
         }
 
         public byte[] Data;
+        public int Index { get; internal set; } = -1;
 
         string internalName;
     }

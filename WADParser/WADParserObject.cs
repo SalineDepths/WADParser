@@ -59,6 +59,7 @@
                 }
             }
 
+            ValidateLumpIndices();
             return true;
         }
 
@@ -185,7 +186,11 @@
         public void InsertLumpAt(LumpEntry entry, int index)
         {
             if (index >= 0 && index <= m_entries.Count)
+            {
                 m_entries.Insert(index, entry);
+
+                ValidateLumpIndices();
+            }
         }
 
         /// <summary>
@@ -195,7 +200,11 @@
         public void RemoveLumpAt(int index)
         {
             if (index >= 0 && index < m_entries.Count)
+            {
                 m_entries.RemoveAt(index);
+
+                ValidateLumpIndices();
+            }
         }
 
         /// <summary>
@@ -216,6 +225,19 @@
 
             m_entries.RemoveAt(index);
             m_entries.Insert(newIndex, entry);
+
+            ValidateLumpIndices();
+        }
+
+        /// <summary>
+        /// Ensures that the stored lumps contain the correct index.  This should be called any time the list is modified.
+        /// </summary>
+        void ValidateLumpIndices()
+        {
+            for (int i = 0; i < m_entries.Count; ++i)
+            {
+                m_entries[i].Index = i;
+            }
         }
     }
 }
