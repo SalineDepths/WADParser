@@ -1,6 +1,6 @@
 ﻿namespace WADParser
 {
-    public class Parser
+    public class WADParserObject
     {
         const int WADHEADER_SIZE = 12;
         const int DIRECTORYENTRY_SIZE = 16;

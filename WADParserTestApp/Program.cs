@@ -7,7 +7,7 @@ namespace WADParser
     {
         static void Main(string[] args)
         {
-            Parser parser = new Parser();
+            WADParserObject parser = new WADParserObject();
             parser.Open(Console.ReadLine());
 
             List<LumpEntry> searchResults = parser.FindLumps("MAPINFO");
