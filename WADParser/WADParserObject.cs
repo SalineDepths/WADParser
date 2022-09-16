@@ -18,6 +18,7 @@
         public bool Open(string fileName)
         {
             m_entries = new List<LumpEntry>();
+            m_wadType = "";
 
             if (fileName == null || !File.Exists(fileName))
                 return false;
@@ -67,7 +68,8 @@
         /// <param name="fileName">The file to write to</param>
         public void Write(string fileName)
         {
-            if (fileName == null || fileName.Length == 0 || !fileName.ToLower().EndsWith(".wad"))
+            if (fileName == null || fileName.Length == 0 || !fileName.ToLower().EndsWith(".wad")
+                || (m_wadType != "IWAD" && m_wadType != "PWAD"))
                 return;
 
             if (File.Exists(fileName))
