@@ -17,6 +17,8 @@
         /// <returns>If the load was successful</returns>
         public bool Open(string fileName)
         {
+            m_entries = new List<LumpEntry>();
+
             if (fileName == null || !File.Exists(fileName))
                 return false;
 
@@ -65,7 +67,7 @@
         /// <param name="fileName">The file to write to</param>
         public void Write(string fileName)
         {
-            if (fileName == null || fileName.Length == 0)
+            if (fileName == null || fileName.Length == 0 || !fileName.ToLower().EndsWith(".wad"))
                 return;
 
             if (File.Exists(fileName))
@@ -97,6 +99,90 @@
                     writer.Write(m_entries[i].Data);
                 }
             }
+        }
+
+        /// <summary>
+        /// Gets a reference to the lump at the given index
+        /// </summary>
+        /// <param name="index">The index to pull the lump from</param>
+        /// <returns>A reference to the lump at index, or null if index is out of bounds</returns>
+        public LumpEntry GetLumpAt(int index)
+        {
+            if (index < LumpCount && index >= 0)
+                return m_entries[index];
+
+            return null;
+        }
+
+        /// <summary>
+        /// Gets a list of references to all lumps matching the given name.
+        /// </summary>
+        /// <param name="name">The name to search for.  Null terminators are automatically applied for names less than 8 characters long.</param>
+        /// <returns>A list of references to lumps that match the search term</returns>
+        public List<LumpEntry> FindLumps(string name)
+        {
+            List<LumpEntry> ret = new List<LumpEntry>();
+
+            if (name == null)
+                return ret;
+
+            string searchTerm = name;
+            for (int i = 8 - searchTerm.Length; i > 0; --i)
+            {
+                searchTerm += '\0';
+            }
+
+            searchTerm = searchTerm.Substring(0, 8);
+            foreach (LumpEntry entry in m_entries)
+            {
+                if (entry.Name == searchTerm)
+                    ret.Add(entry);
+            }
+
+            return ret;
+        }
+
+        /// <summary>
+        /// Constructs and inserts a new lump at index
+        /// </summary>
+        /// <param name="name">The name of the new lump</param>
+        /// <param name="data">The data the new lump contains</param>
+        /// <param name="index">The index to insert the lump at</param>
+        public void InsertLumpAt(string name, byte[] data, int index)
+        {
+            InsertLumpAt(new LumpEntry(name, data), index);
+        }
+
+        /// <summary>
+        /// Constructs and inserts a new lump at index
+        /// </summary>
+        /// <param name="name">The name of the new lump</param>
+        /// <param name="data">The data the new lump contains</param>
+        /// <param name="index">The index to insert the lump at</param>
+        public void InsertLumpAt(string name, string data, int index)
+        {
+            InsertLumpAt(new LumpEntry(name, data), index);
+        }
+
+        /// <summary>
+        /// Inserts the given lump at index
+        /// </summary>
+        /// <param name="entry">The lump to insert</param>
+        /// <param name="index">The index to insert the lump at</param>
+        public void InsertLumpAt(LumpEntry entry, int index)
+        {
+            if (index >= 0 && index <= m_entries.Count)
+                m_entries.Insert(index, entry);
+        }
+
+        /// <summary>
+        /// Removes the lump at index
+        /// </summary>
+        /// <param name="index">The index to remove the lump from</param>
+        public void RemoveLumpAt(int index)
+        {
+            if (index >= 0 && index < m_entries.Count)
+                m_entries.RemoveAt(index);
         }
     }
 }

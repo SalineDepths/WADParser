@@ -14,6 +14,11 @@ namespace WADParser
             Name = nameIn;
             Data = dataIn;
         }
+        public LumpEntry(string nameIn, string dataIn)
+        {
+            Name = nameIn;
+            Data = System.Text.Encoding.Default.GetBytes(dataIn);
+        }
 
         public string Name 
         {
