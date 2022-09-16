@@ -5,6 +5,8 @@ VisualStudioVersion = 17.0.32014.148
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WADParser", "WADParser\WADParser.csproj", "{ED59896F-3397-4FD3-A4E0-4415732EA15D}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WADParserTestApp", "WADParserTestApp\WADParserTestApp.csproj", "{A8D1189B-6F7A-46A0-803A-16640B834C35}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -15,6 +17,10 @@ Global
 		{ED59896F-3397-4FD3-A4E0-4415732EA15D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{ED59896F-3397-4FD3-A4E0-4415732EA15D}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{ED59896F-3397-4FD3-A4E0-4415732EA15D}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A8D1189B-6F7A-46A0-803A-16640B834C35}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A8D1189B-6F7A-46A0-803A-16640B834C35}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A8D1189B-6F7A-46A0-803A-16640B834C35}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A8D1189B-6F7A-46A0-803A-16640B834C35}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
