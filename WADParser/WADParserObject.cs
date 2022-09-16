@@ -186,5 +186,25 @@
             if (index >= 0 && index < m_entries.Count)
                 m_entries.RemoveAt(index);
         }
+
+        /// <summary>
+        /// Moves the lump at the given index to destinationIndex.
+        /// </summary>
+        /// <param name="index">The lump to move</param>
+        /// <param name="destinationIndex">The index to move the lump to.  Valid range is 0-LumpCount</param>
+        public void MoveLumpTo(int index, int destinationIndex)
+        {
+            if (index < 0 || index >= LumpCount || destinationIndex < 0 || destinationIndex > LumpCount)
+                return;
+
+            LumpEntry entry = m_entries[index];
+            int newIndex = destinationIndex;
+
+            if (index < destinationIndex)
+                newIndex--;
+
+            m_entries.RemoveAt(index);
+            m_entries.Insert(newIndex, entry);
+        }
     }
 }

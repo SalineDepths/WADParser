@@ -18,8 +18,8 @@ namespace WADParser
 
             LumpEntry test = new LumpEntry("TEST", "THIS IS A TEST");
             parser.InsertLumpAt(test, 0);
-            parser.InsertLumpAt("TEST", System.Text.Encoding.Default.GetBytes("THIS IS A TEST"), parser.LumpCount);
-            parser.InsertLumpAt("TEST", System.Text.Encoding.Default.GetBytes("THIS IS A TEST"), parser.LumpCount);
+            parser.InsertLumpAt("TEST", System.Text.Encoding.Default.GetBytes("THIS IS A TEST 2"), parser.LumpCount);
+            parser.InsertLumpAt("TEST", System.Text.Encoding.Default.GetBytes("THIS IS A TEST 3"), parser.LumpCount);
 
             parser.RemoveLumpAt(parser.LumpCount - 1);
 
@@ -30,6 +30,10 @@ namespace WADParser
             }
 
             parser.InsertLumpAt("TEST", "THIS IS ANOTHER TEST", parser.LumpCount);
+            parser.MoveLumpTo(parser.LumpCount - 1, 3);
+            parser.MoveLumpTo(0, parser.LumpCount);
+            parser.MoveLumpTo(parser.LumpCount - 1, parser.LumpCount);
+            parser.MoveLumpTo(parser.LumpCount - 2, 1);
             parser.Write(Console.ReadLine());
         }
     }
