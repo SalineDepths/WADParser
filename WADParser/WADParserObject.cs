@@ -1,4 +1,7 @@
-﻿namespace WADParser
+﻿using System.Collections.Generic;
+using System.IO;
+
+namespace WADParser
 {
     public enum WadTypeEnum
     {
