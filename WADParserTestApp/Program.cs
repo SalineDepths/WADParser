@@ -8,7 +8,7 @@ namespace WADParser
         static void Main(string[] args)
         {
             WADParserObject parser = new WADParserObject();
-            parser.Open(Console.ReadLine());
+            FileOpResult result = parser.Open(Console.ReadLine());
             CheckIndices(parser);
 
             List<LumpEntry> searchResults = parser.FindLumps("MAPINFO");
@@ -39,7 +39,7 @@ namespace WADParser
             parser.MoveLumpTo(parser.LumpCount - 2, 1);
             CheckIndices(parser);
 
-            parser.Write(Console.ReadLine());
+            result = parser.Write(Console.ReadLine());
         }
 
         static void CheckIndices(WADParserObject parser)
