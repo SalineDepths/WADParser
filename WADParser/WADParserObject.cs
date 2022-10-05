@@ -66,17 +66,18 @@ namespace WADParser
                     string name;
                     byte[] contents;
 
-                    BinaryReader lumpReader = new BinaryReader(File.OpenRead(fileName));
-
-                    for (int i = 0; i < lumpCount; i++)
+                    using (BinaryReader lumpReader = new BinaryReader(File.OpenRead(fileName)))
                     {
-                        lumpPos = reader.ReadInt32();
-                        size = reader.ReadInt32();
-                        name = System.Text.Encoding.Default.GetString(reader.ReadBytes(8));
+                        for (int i = 0; i < lumpCount; i++)
+                        {
+                            lumpPos = reader.ReadInt32();
+                            size = reader.ReadInt32();
+                            name = System.Text.Encoding.Default.GetString(reader.ReadBytes(8));
 
-                        lumpReader.BaseStream.Position = lumpPos;
-                        contents = lumpReader.ReadBytes(size);
-                        m_entries.Add(new LumpEntry(name, contents));
+                            lumpReader.BaseStream.Position = lumpPos;
+                            contents = lumpReader.ReadBytes(size);
+                            m_entries.Add(new LumpEntry(name, contents));
+                        }
                     }
                 }
             }
@@ -95,7 +96,7 @@ namespace WADParser
         /// <param name="fileName">The file to write to</param>
         public FileOpResult Write(string fileName)
         {
-            if (fileName == null || fileName.Length == 0 || !fileName.ToLower().EndsWith(".wad"))
+            if (fileName == null || fileName.Length == 0 || !(fileName.ToLower().EndsWith(".wad") || fileName.ToLower().EndsWith(".wad\"")))
                 return FileOpResult.InvalidFilename;
 
             if ((m_wadType != "IWAD" && m_wadType != "PWAD"))
@@ -148,7 +149,7 @@ namespace WADParser
         /// <param name="newType">The wad type to save as</param>
         public void SetWadType(WadTypeEnum newType)
         {
-            switch(newType)
+            switch (newType)
             {
                 case WadTypeEnum.IWAD:
                     m_wadType = "IWAD";
