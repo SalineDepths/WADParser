@@ -30,6 +30,62 @@ namespace WADParser
         public int LumpCount { get { return m_entries.Count; } }
 
         /// <summary>
+        /// Opens a file representative of one lump's contents
+        /// </summary>
+        /// <param name="fileName">The file to open</param>
+        /// <param name="lumpName">The name of the new lump</param>
+        /// <returns>A lump entry built from the file's contents</returns>
+        public static LumpEntry OpenLump(string fileName, string lumpName)
+        {
+            if (!File.Exists(fileName))
+                return null;
+
+            LumpEntry entry = new LumpEntry();
+
+            using (BinaryReader reader = new BinaryReader(File.OpenRead(fileName)))
+            {
+                entry.Name = lumpName;
+
+                using (MemoryStream memoryStream = new MemoryStream())
+                {
+                    reader.BaseStream.CopyTo(memoryStream);
+                    entry.Data = memoryStream.ToArray();
+                }
+            }
+
+            return entry;
+        }
+
+        /// <summary>
+        /// Saves the given lump as its own file
+        /// </summary>
+        /// <param name="entry">The entry to save</param>
+        /// <param name="fileName">The path to save the entry to</param>
+        /// <returns>Whether the operation was successful or not</returns>
+        public static bool WriteLump(LumpEntry entry, string fileName)
+        {
+            if (fileName == null || fileName.Length == 0)
+                return false;
+
+            try
+            {
+                if (File.Exists(fileName))
+                    File.Delete(fileName);
+
+                using (BinaryWriter writer = new BinaryWriter(File.OpenWrite(fileName)))
+                {
+                    writer.Write(entry.Data);
+                }
+            }
+            catch (IOException)
+            {
+                return false;
+            }
+
+            return true;
+        }
+
+        /// <summary>
         /// Opens a given WAD file
         /// </summary>
         /// <param name="fileName">The file to open</param>

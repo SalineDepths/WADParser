@@ -40,6 +40,9 @@ namespace WADParser
             CheckIndices(parser);
 
             result = parser.Write(Console.ReadLine());
+
+            LumpEntry loadEntryTest = WADParserObject.OpenLump(Console.ReadLine(), "TESTLUMP");
+            WADParserObject.WriteLump(loadEntryTest, Console.ReadLine());
         }
 
         static void CheckIndices(WADParserObject parser)
