@@ -22,7 +22,7 @@ namespace WADParser
 
         public string Name 
         {
-            get { return internalName; }
+            get { return internalName.Replace("\0", ""); }
             set
             {
                 internalName = value;
@@ -35,6 +35,11 @@ namespace WADParser
                 internalName = internalName.Substring(0, 8);
             }
         }
+
+        /// <summary>
+        /// Returns the null terminator-padded version of this lump's name
+        /// </summary>
+        public string GetDoomFriendlyName() { return internalName; }
 
         public byte[] Data;
         public int Index { get; internal set; } = -1;

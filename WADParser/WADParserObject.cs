@@ -88,6 +88,16 @@ namespace WADParser
         /// <summary>
         /// Opens a given WAD file
         /// </summary>
+        /// <param name="fileIn">FileInfo describing the file to open</param>
+        /// <returns>If the load was successful</returns>
+        public FileOpResult Open(FileInfo fileIn)
+        {
+            return Open(fileIn.FullName);
+        }
+
+        /// <summary>
+        /// Opens a given WAD file
+        /// </summary>
         /// <param name="fileName">The file to open</param>
         /// <returns>If the load was successful</returns>
         public FileOpResult Open(string fileName)
@@ -178,7 +188,7 @@ namespace WADParser
                     {
                         writer.Write(currPos);
                         writer.Write(m_entries[i].Data.Length);
-                        writer.Write(m_entries[i].Name.ToCharArray());
+                        writer.Write(m_entries[i].GetDoomFriendlyName().ToCharArray());
 
                         currPos += m_entries[i].Data.Length;
                     }
@@ -254,7 +264,7 @@ namespace WADParser
             searchTerm = searchTerm.Substring(0, 8);
             foreach (LumpEntry entry in m_entries)
             {
-                if (entry.Name == searchTerm)
+                if (entry.GetDoomFriendlyName() == searchTerm)
                     ret.Add(entry);
             }
 

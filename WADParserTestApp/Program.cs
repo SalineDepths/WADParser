@@ -8,11 +8,14 @@ namespace WADParser
         static void Main(string[] args)
         {
             WADParserObject parser = new WADParserObject();
-            FileOpResult result = parser.Open(Console.ReadLine());
+            FileInfo fileInfo = new FileInfo(Console.ReadLine());
+
+            FileOpResult result = parser.Open(fileInfo);
             CheckIndices(parser);
 
             List<LumpEntry> searchResults = parser.FindLumps("MAPINFO");
             List<LumpEntry> searchResults2 = parser.FindLumps("MAPINFO\0\0\0\0");
+            string checkName = searchResults[0].Name;
 
             LumpEntry first = parser.GetLumpAt(0);
             LumpEntry last = parser.GetLumpAt(parser.LumpCount - 1);
