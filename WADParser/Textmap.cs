@@ -109,22 +109,23 @@ namespace WADParser
             string converted = Encoding.Default.GetString(bytes);
             if (converted.Length > 0)
             {
-                Setup(new List<string>(converted.Split('\n')));
+                Setup(converted.Split('\n'));
             }
         }
 
-        public ThingEntry(List<string> linesIn)
+        public ThingEntry(string[] linesIn)
         {
             Setup(linesIn);
         }
-
 
         public override string Write()
         {
             string output = string.Empty;
 
             if (id != 0) output += "id = " + id.ToString() + ';';
-            output += "\nx = " + x.ToString() + ';';
+            if (output.Length > 0) output += "\n";
+
+            output += "x = " + x.ToString() + ';';
             output += "\ny = " + y.ToString() + ';';
 
             if (height != 0.0f) output += "\nheight = " + height.ToString() + ';';
@@ -163,7 +164,7 @@ namespace WADParser
             if (arg3 != 0) output += "\narg3 = " + arg3.ToString() + ';';
             if (arg4 != 0) output += "\narg4 = " + arg4.ToString() + ';';
 
-            if (comment != "") output += "\ncomment = " + comment.ToString() + ';';
+            if (comment != "") output += "\ncomment = \"" + comment.ToString() + "\";";
 
             if (skill6 != false) output += "\nskill6 = " + skill6.ToString() + ';';
             if (skill7 != false) output += "\nskill7 = " + skill7.ToString() + ';';
@@ -192,12 +193,12 @@ namespace WADParser
 
             if (conversation != 0) output += "\nconversation = " + conversation.ToString() + ';';
             if (countsecret != false) output += "\ncountsecret = " + countsecret.ToString() + ';';
-            if (arg0str != "") output += "\narg0str = " + arg0str.ToString() + ';';
+            if (arg0str != "") output += "\narg0str = \"" + arg0str.ToString() + "\";";
             if (gravity != 1.0f) output += "\ngravity = " + gravity.ToString() + ';';
 
             if (health != -1) output += "\nhealth = " + health.ToString() + ';';
 
-            if (renderstyle != "") output += "\nrenderstyle = " + renderstyle.ToString() + ';';
+            if (renderstyle != "") output += "\nrenderstyle = \"" + renderstyle.ToString() + "\";";
             if (fillcolor != 0x000000) output += "\nfillcolor = " + fillcolor.ToString() + ';';
             if (alpha != 1.0f) output += "\nalpha = " + alpha.ToString() + ';';
             if (score != 0) output += "\nscore = " + score.ToString() + ';';
@@ -213,7 +214,7 @@ namespace WADParser
             return output;
         }
 
-        private void Setup(List<string> linesIn)
+        private void Setup(string[] linesIn)
         {
             foreach (string line in linesIn)
             {
@@ -224,217 +225,217 @@ namespace WADParser
                     switch (chunks[0])
                     {
                         case "id":
-                            id = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            id = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "x":
-                            x = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            x = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "y":
-                            y = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            y = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "height":
-                            height = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            height = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "angle":
-                            angle = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            angle = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "type":
-                            type = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            type = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill1":
-                            skill1 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill1 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill2":
-                            skill2 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill2 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill3":
-                            skill3 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill3 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill4":
-                            skill4 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill4 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill5":
-                            skill5 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill5 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "ambush":
-                            ambush = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            ambush = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "single":
-                            single = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            single = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "dm":
-                            dm = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            dm = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "coop":
-                            coop = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            coop = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "friend":
-                            friend = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            friend = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "dormant":
-                            dormant = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            dormant = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class1":
-                            class1 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class1 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class2":
-                            class2 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class2 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class3":
-                            class3 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class3 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class4":
-                            class4 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class4 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "standing":
-                            standing = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            standing = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "strifeally":
-                            strifeally = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            strifeally = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "translucent":
-                            translucent = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            translucent = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "invisible":
-                            invisible = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            invisible = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "special":
-                            special = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            special = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg0":
-                            arg0 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            arg0 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg1":
-                            arg1 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            arg1 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg2":
-                            arg2 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            arg2 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg3":
-                            arg3 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            arg3 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg4":
-                            arg4 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            arg4 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "comment":
-                            comment = chunks[1].Substring(0, chunks[1].Length - 2);
+                            comment = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "skill6":
-                            skill6 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill6 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill7":
-                            skill7 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill7 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill8":
-                            skill8 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill8 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill9":
-                            skill9 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill9 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill10":
-                            skill10 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill10 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill11":
-                            skill11 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill11 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill12":
-                            skill12 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill12 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill13":
-                            skill13 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill13 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill14":
-                            skill14 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill14 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill15":
-                            skill15 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill15 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "skill16":
-                            skill16 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            skill16 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class5":
-                            class5 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class5 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class6":
-                            class6 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class6 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class7":
-                            class7 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class7 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class8":
-                            class8 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class8 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class9":
-                            class9 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class9 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class10":
-                            class10 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class10 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class11":
-                            class11 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class11 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class12":
-                            class12 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class12 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class13":
-                            class13 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class13 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class14":
-                            class14 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class14 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class15":
-                            class15 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class15 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "class16":
-                            class16 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            class16 = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "conversation":
-                            conversation = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            conversation = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "countsecret":
-                            countsecret = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            countsecret = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg0str":
-                            arg0str = chunks[1].Substring(0, chunks[1].Length - 2);
+                            arg0str = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "gravity":
-                            gravity = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            gravity = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "health":
-                            health = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            health = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "renderstyle":
-                            renderstyle = chunks[1].Substring(0, chunks[1].Length - 2);
+                            renderstyle = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "fillcolor":
-                            fillcolor = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            fillcolor = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "alpha":
-                            alpha = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            alpha = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "score":
-                            score = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            score = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "pitch":
-                            pitch = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            pitch = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "roll":
-                            roll = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            roll = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "scalex":
-                            scalex = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            scalex = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "scaley":
-                            scaley = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            scaley = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "scale":
-                            scale = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            scale = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "floatbobphase":
-                            floatbobphase = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            floatbobphase = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         default:
-                            uservars.Add(chunks[0], chunks[1].Substring(0, chunks[1].Length - 2));
+                            uservars.Add(chunks[0], chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                     }
                 }
@@ -517,11 +518,11 @@ namespace WADParser
             string converted = Encoding.Default.GetString(bytes);
             if (converted.Length > 0)
             {
-                Setup(new List<string>(converted.Split('\n')));
+                Setup(converted.Split('\n'));
             }
         }
 
-        public LinedefEntry(List<string> linesIn)
+        public LinedefEntry(string[] linesIn)
         {
             Setup(linesIn);
         }
@@ -531,8 +532,9 @@ namespace WADParser
             string output = string.Empty;
 
             if (id != -1) output += "id = " + id.ToString() + ';';
+            if (output.Length > 0) output += "\n";
 
-            output += "\nv1 = " + v1.ToString() + ';';
+            output += "v1 = " + v1.ToString() + ';';
             output += "\nv2 = " + v2.ToString() + ';';
 
             if (blocking != false) output += "\nblocking = " + blocking.ToString() + ';';
@@ -567,10 +569,10 @@ namespace WADParser
             output += "\nsidefront = " + sidefront.ToString() + ';';
             if (sideback != -1) output += "\nsideback = " + sideback.ToString() + ';';
 
-            if (comment != "") output += "\ncomment = " + comment.ToString() + ';';
+            if (comment != "") output += "\ncomment = \"" + comment.ToString() + "\";";
 
             if (alpha != 1.0f) output += "\nalpha = " + alpha.ToString() + ';';
-            if (renderstyle != "") output += "\nrenderstyle = " + renderstyle.ToString() + ';';
+            if (renderstyle != "") output += "\nrenderstyle = \"" + renderstyle.ToString() + "\";";
 
             if (playeruseback != false) output += "\nplayeruseback = " + playeruseback.ToString() + ';';
             if (anycross != false) output += "\nanycross = " + anycross.ToString() + ';';
@@ -590,7 +592,7 @@ namespace WADParser
             if (blocksight != false) output += "\nblocksight = " + blocksight.ToString() + ';';
             if (blockhitscan != false) output += "\nblockhitscan = " + blockhitscan.ToString() + ';';
             if (locknumber != 0) output += "\nlocknumber = " + locknumber.ToString() + ';';
-            if (arg0str != "") output += "\narg0str = " + arg0str.ToString() + ';';
+            if (arg0str != "") output += "\narg0str = \"" + arg0str.ToString() + "\";";
             if (moreids.Count > 0) output += "\nmoreids = " + string.Join(" ", moreids) + ';';
 
             if (transparent != false) output += "\ntransparent = " + transparent.ToString() + ';';
@@ -600,7 +602,7 @@ namespace WADParser
             return output;
         }
 
-        private void Setup(List<string> linesIn)
+        private void Setup(string[] linesIn)
         {
             foreach (string line in linesIn)
             {
@@ -611,167 +613,167 @@ namespace WADParser
                     switch (chunks[0])
                     {
                         case "id":
-                            id = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            id = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "v1":
-                            v1 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            v1 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "v2":
-                            v2 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            v2 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "blocking":
-                            blocking = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            blocking = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "blockmonsters":
-                            blockmonsters = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            blockmonsters = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "twosided":
-                            twosided = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            twosided = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "dontpegtop":
-                            dontpegtop = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            dontpegtop = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "dontpegbottom":
-                            dontpegbottom = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            dontpegbottom = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "secret":
-                            secret = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            secret = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "blocksound":
-                            blocksound = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            blocksound = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "dontdraw":
-                            dontdraw = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            dontdraw = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "mapped":
-                            mapped = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            mapped = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "passuse":
-                            passuse = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            passuse = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "playercross":
-                            playercross = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            playercross = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "playeruse":
-                            playeruse = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            playeruse = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "monstercross":
-                            monstercross = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            monstercross = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "monsteruse":
-                            monsteruse = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            monsteruse = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "impact":
-                            impact = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            impact = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "playerpush":
-                            playerpush = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            playerpush = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "monsterpush":
-                            monsterpush = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            monsterpush = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "missilecross":
-                            missilecross = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            missilecross = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "repeatspecial":
-                            repeatspecial = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            repeatspecial = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "special":
-                            special = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            special = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg0":
-                            arg0 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            arg0 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg1":
-                            arg1 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            arg1 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg2":
-                            arg2 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            arg2 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg3":
-                            arg3 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            arg3 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg4":
-                            arg4 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            arg4 = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "sidefront":
-                            sidefront = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            sidefront = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "sideback":
-                            sideback = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            sideback = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "comment":
-                            comment = chunks[1].Substring(0, chunks[1].Length - 2);
+                            comment = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "alpha":
-                            alpha = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            alpha = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "renderstyle":
-                            renderstyle = chunks[1].Substring(0, chunks[1].Length - 2);
+                            renderstyle = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "playeruseback":
-                            playeruseback = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            playeruseback = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "anycross":
-                            anycross = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            anycross = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "monsteractivate":
-                            monsteractivate = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            monsteractivate = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "blockplayers":
-                            blockplayers = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            blockplayers = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "blockeverything":
-                            blockeverything = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            blockeverything = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "firstsideonly":
-                            firstsideonly = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            firstsideonly = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "zoneboundary":
-                            zoneboundary = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            zoneboundary = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "clipmidtex":
-                            clipmidtex = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            clipmidtex = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "wrapmidtex":
-                            wrapmidtex = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            wrapmidtex = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "midtex3d":
-                            midtex3d = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            midtex3d = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "midtex3dimpassible":
-                            midtex3dimpassible = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            midtex3dimpassible = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "checkswitchrange":
-                            checkswitchrange = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            checkswitchrange = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "blockprojectiles":
-                            blockprojectiles = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            blockprojectiles = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "blockuse":
-                            blockuse = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            blockuse = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "blocksight":
-                            blocksight = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            blocksight = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "blockhitscan":
-                            blockhitscan = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            blockhitscan = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "locknumber":
-                            locknumber = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            locknumber = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "arg0str":
-                            arg0str = chunks[1].Substring(0, chunks[1].Length - 2);
+                            arg0str = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "transparent":
-                            transparent = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            transparent = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "moreids":
-                            string[] moreIdArray = chunks[1].Substring(0, chunks[1].Length - 2).Split(' ');
+                            string[] moreIdArray = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "").Split(' ');
                             moreids = new List<string>(moreIdArray);
                             break;
                         default:
-                            uservars.Add(chunks[0], chunks[1].Substring(0, chunks[1].Length - 2));
+                            uservars.Add(chunks[0], chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                     }
                 }
@@ -820,11 +822,11 @@ namespace WADParser
             string converted = Encoding.Default.GetString(bytes);
             if (converted.Length > 0)
             {
-                Setup(new List<string>(converted.Split('\n')));
+                Setup(converted.Split('\n'));
             }
         }
 
-        public SidedefEntry(List<string> linesIn)
+        public SidedefEntry(string[] linesIn)
         {
             Setup(linesIn);
         }
@@ -836,13 +838,14 @@ namespace WADParser
             if (offsetx != 0) output += "offsetx = " + offsetx.ToString() + ';';
             if (offsety != 0) output += "\noffsety = " + offsety.ToString() + ';';
 
-            if (texturetop != "-") output += "\ntexturetop = " + texturetop.ToString() + ';';
-            if (texturebottom != "-") output += "\ntexturebottom = " + texturebottom.ToString() + ';';
-            if (texturemiddle != "-") output += "\ntexturemiddle = " + texturemiddle.ToString() + ';';
+            if (texturetop != "-") output += "\ntexturetop = \"" + texturetop.ToString() + "\";";
+            if (texturebottom != "-") output += "\ntexturebottom = \"" + texturebottom.ToString() + "\";";
+            if (texturemiddle != "-") output += "\ntexturemiddle = \"" + texturemiddle.ToString() + "\";";
+            if (output.Length > 0) output += "\n";
 
-            output += "\nsector = " + sector.ToString() + ';';
+            output += "sector = " + sector.ToString() + ';';
 
-            if (comment != "") output += "\ncomment = " + comment.ToString() + ';';
+            if (comment != "") output += "\ncomment = \"" + comment.ToString() + "\";";
 
             if (scalex_top != 1.0f) output += "\nscalex_top = " + scalex_top.ToString() + ';';
             if (scaley_top != 1.0f) output += "\nscaley_top = " + scaley_top.ToString() + ';';
@@ -869,7 +872,7 @@ namespace WADParser
             return output;
         }
 
-        private void Setup(List<string> linesIn)
+        private void Setup(string[] linesIn)
         {
             foreach (string line in linesIn)
             {
@@ -880,82 +883,85 @@ namespace WADParser
                     switch (chunks[0])
                     {
                         case "offsetx":
-                            offsetx = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            offsetx = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "offsety":
-                            offsety = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            offsety = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "texturetop":
-                            texturetop = chunks[1].Substring(0, chunks[1].Length - 2);
+                            texturetop = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "texturebottom":
-                            texturebottom = chunks[1].Substring(0, chunks[1].Length - 2);
+                            texturebottom = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "texturemiddle":
-                            texturemiddle = chunks[1].Substring(0, chunks[1].Length - 2);
+                            texturemiddle = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "sector":
-                            sector = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            sector = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "comment":
-                            comment = chunks[1].Substring(0, chunks[1].Length - 2);
+                            comment = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "scalex_top":
-                            scalex_top = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            scalex_top = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "scaley_top":
-                            scaley_top = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            scaley_top = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "scalex_mid":
-                            scalex_mid = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            scalex_mid = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "scaley_mid":
-                            scaley_mid = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            scaley_mid = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "scalex_bottom":
-                            scalex_bottom = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            scalex_bottom = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "scaley_bottom":
-                            scaley_bottom = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            scaley_bottom = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "offsetx_top":
-                            offsetx_top = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            offsetx_top = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "offsety_top":
-                            offsety_top = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            offsety_top = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "offsetx_mid":
-                            offsetx_mid = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            offsetx_mid = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "offsety_mid":
-                            offsety_mid = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            offsety_mid = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "offsetx_bottom":
-                            offsetx_bottom = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            offsetx_bottom = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "offsety_bottom":
-                            offsety_bottom = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            offsety_bottom = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "light":
-                            light = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            light = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "lightabsolute":
-                            lightabsolute = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            lightabsolute = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "lightfog":
-                            lightfog = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            lightfog = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "nofakecontrast":
-                            nofakecontrast = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            nofakecontrast = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "clipmidtex":
-                            clipmidtex = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            clipmidtex = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "wrapmidtex":
-                            wrapmidtex = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            wrapmidtex = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "nodecal":
-                            nodecal = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            nodecal = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
+                            break;
+                        default:
+                            uservars.Add(chunks[0], chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                     }
                 }
@@ -969,8 +975,8 @@ namespace WADParser
         public float y;
 
         //zdoom
-        public float zfloor;
-        public float zceiling;
+        public float zfloor = 0.0f;
+        public float zceiling = 0.0f;
 
         public Dictionary<string, string> uservars = new Dictionary<string, string>();
 
@@ -979,11 +985,11 @@ namespace WADParser
             string converted = Encoding.Default.GetString(bytes);
             if (converted.Length > 0)
             {
-                Setup(new List<string>(converted.Split('\n')));
+                Setup(converted.Split('\n'));
             }
         }
 
-        public VertexEntry(List<string> linesIn)
+        public VertexEntry(string[] linesIn)
         {
             Setup(linesIn);
         }
@@ -993,13 +999,13 @@ namespace WADParser
             string output = string.Empty;
             output += "x = " + x.ToString() + ';';
             output += "\ny = " + y.ToString() + ';';
-            output += "\nzfloor = " + zfloor.ToString() + ';';
-            output += "\nzceiling = " + zceiling.ToString() + ';';
+            if (zfloor != 0.0f) output += "\nzfloor = " + zfloor.ToString() + ';';
+            if (zceiling != 0.0f) output += "\nzceiling = " + zceiling.ToString() + ';';
             foreach (var entry in uservars) output += '\n' + entry.Key + " = " + entry.Value + ';';
             return output;
         }
 
-        private void Setup(List<string> linesIn)
+        private void Setup(string[] linesIn)
         {
             foreach (string line in linesIn)
             {
@@ -1010,19 +1016,19 @@ namespace WADParser
                     switch (chunks[0])
                     {
                         case "x":
-                            x = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            x = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "y":
-                            y = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            y = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "zfloor":
-                            zfloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            zfloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "zceiling":
-                            zceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            zceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         default:
-                            uservars.Add(chunks[0], chunks[1].Substring(0, chunks[1].Length - 2));
+                            uservars.Add(chunks[0], chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                     }
                 }
@@ -1110,11 +1116,11 @@ namespace WADParser
             string converted = Encoding.Default.GetString(bytes);
             if (converted.Length > 0)
             {
-                Setup(new List<string>(converted.Split('\n')));
+                Setup(converted.Split('\n'));
             }
         }
 
-        public SectorEntry(List<string> linesIn)
+        public SectorEntry(string[] linesIn)
         {
             Setup(linesIn);
         }
@@ -1125,8 +1131,10 @@ namespace WADParser
 
             if (heightfloor != 0) output += "heightfloor = " + heightfloor.ToString() + ';';
             if (heightceiling != 0) output += "\nheightceiling = " + heightceiling.ToString() + ';';
-            output += "\ntexturefloor = " + texturefloor.ToString() + ';';
-            output += "\ntextureceiling = " + textureceiling.ToString() + ';';
+            if (output.Length > 0) output += "\n";
+
+            output += "texturefloor = \"" + texturefloor + "\";";
+            output += "\ntextureceiling = \"" + textureceiling + "\";";
 
             if (lightlevel != 160) output += "\nlightlevel = " + lightlevel.ToString() + ';';
 
@@ -1159,8 +1167,8 @@ namespace WADParser
             if (lightceilingabsolute != false) output += "\nlightceilingabsolute = " + lightceilingabsolute.ToString() + ';';
             if (alphafloor != 1.0f) output += "\nalphafloor = " + alphafloor.ToString() + ';';
             if (alphaceiling != 1.0f) output += "\nalphaceiling = " + alphaceiling.ToString() + ';';
-            if (renderstylefloor != "translucent") output += "\nrenderstylefloor = " + renderstylefloor.ToString() + ';';
-            if (renderstyleceiling != "translucent") output += "\nrenderstyleceiling = " + renderstyleceiling.ToString() + ';';
+            if (renderstylefloor != "translucent") output += "\nrenderstylefloor = \"" + renderstylefloor.ToString() + "\";";
+            if (renderstyleceiling != "translucent") output += "\nrenderstyleceiling = \"" + renderstyleceiling.ToString() + "\";";
             if (gravity != 1.0f) output += "\ngravity = " + gravity.ToString() + ';';
             if (lightcolor != 0xffffff) output += "\nlightcolor = " + lightcolor.ToString() + ';';
             if (fadecolor != 0x000000) output += "\nfadecolor = " + fadecolor.ToString() + ';';
@@ -1174,29 +1182,29 @@ namespace WADParser
             if (waterzone != false) output += "\nwaterzone = " + waterzone.ToString() + ';';
             if (moreids.Count > 0) output += "\nmoreids = " + string.Join(" ", moreids) + ';';
             if (damageamount != 0) output += "\ndamageamount = " + damageamount.ToString() + ';';
-            if (damagetype != "None") output += "\ndamagetype = " + damagetype.ToString() + ';';
+            if (damagetype != "None") output += "\ndamagetype = \"" + damagetype.ToString() + "\";";
             if (damageinterval != 32) output += "\ndamageinterval = " + damageinterval.ToString() + ';';
             if (leakiness != 0) output += "\nleakiness = " + leakiness.ToString() + ';';
             if (damageterraineffect != false) output += "\ndamageterraineffect = " + damageterraineffect.ToString() + ';';
-            if (floorterrain != "") output += "\nfloorterrain = " + floorterrain.ToString() + ';';
-            if (ceilingterrain != "") output += "\nceilingterrain = " + ceilingterrain.ToString() + ';';
+            if (floorterrain != "") output += "\nfloorterrain = \"" + floorterrain.ToString() + "\";";
+            if (ceilingterrain != "") output += "\nceilingterrain = \"" + ceilingterrain.ToString() + "\";";
 
             if (portal_ceil_blocksound != false) output += "\nportal_ceil_blocksound = " + portal_ceil_blocksound.ToString() + ';';
             if (portal_ceil_disabled != false) output += "\nportal_ceil_disabled = " + portal_ceil_disabled.ToString() + ';';
             if (portal_ceil_nopass != false) output += "\nportal_ceil_nopass = " + portal_ceil_nopass.ToString() + ';';
             if (portal_ceil_norender != false) output += "\nportal_ceil_norender = " + portal_ceil_norender.ToString() + ';';
-            if (portal_ceil_overlaytype != "translucent") output += "\nportal_ceil_overlaytype = " + portal_ceil_overlaytype.ToString() + ';';
+            if (portal_ceil_overlaytype != "translucent") output += "\nportal_ceil_overlaytype = \"" + portal_ceil_overlaytype.ToString() + "\";";
             if (portal_floor_blocksound != false) output += "\nportal_floor_blocksound = " + portal_floor_blocksound.ToString() + ';';
             if (portal_floor_disabled != false) output += "\nportal_floor_disabled = " + portal_floor_disabled.ToString() + ';';
             if (portal_floor_nopass != false) output += "\nportal_floor_nopass = " + portal_floor_nopass.ToString() + ';';
             if (portal_floor_norender != false) output += "\nportal_floor_norender = " + portal_floor_norender.ToString() + ';';
-            if (portal_floor_overlaytype != "translucent") output += "\nportal_floor_overlaytype = " + portal_floor_overlaytype.ToString() + ';';
+            if (portal_floor_overlaytype != "translucent") output += "\nportal_floor_overlaytype = \"" + portal_floor_overlaytype.ToString() + "\";";
 
             foreach (var entry in uservars) output += '\n' + entry.Key + " = " + entry.Value + ';';
             return output;
         }
 
-        private void Setup(List<string> linesIn) //god has no more forgiveness
+        private void Setup(string[] linesIn) //god has no more forgiveness
         {
             foreach (string line in linesIn)
             {
@@ -1207,193 +1215,196 @@ namespace WADParser
                     switch (chunks[0])
                     {
                         case "heightfloor":
-                            heightfloor = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            heightfloor = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "heightceiling":
-                            heightceiling = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            heightceiling = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "texturefloor":
-                            texturefloor = chunks[1].Substring(0, chunks[1].Length - 2);
+                            texturefloor = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "textureceiling":
-                            textureceiling = chunks[1].Substring(0, chunks[1].Length - 2);
+                            textureceiling = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "lightlevel":
-                            lightlevel = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            lightlevel = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "special":
-                            special = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            special = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "id":
-                            id = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            id = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "comment":
-                            comment = chunks[1].Substring(0, chunks[1].Length - 2);
+                            comment = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "xpanningfloor":
-                            xpanningfloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            xpanningfloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "ypanningfloor":
-                            ypanningfloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            ypanningfloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "xpanningceiling":
-                            xpanningceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            xpanningceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "ypanningceiling":
-                            ypanningceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            ypanningceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "xscalefloor":
-                            xscalefloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            xscalefloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "yscalefloor":
-                            yscalefloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            yscalefloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "xscaleceiling":
-                            xscaleceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            xscaleceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "yscaleceiling":
-                            yscaleceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            yscaleceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "rotationfloor":
-                            rotationfloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            rotationfloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "rotationceiling":
-                            rotationceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            rotationceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "ceilingplane_a":
-                            ceilingplane_a = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            ceilingplane_a = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "ceilingplane_b":
-                            ceilingplane_b = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            ceilingplane_b = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "ceilingplane_c":
-                            ceilingplane_c = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            ceilingplane_c = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "ceilingplane_d":
-                            ceilingplane_d = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            ceilingplane_d = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "floorplane_a":
-                            floorplane_a = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            floorplane_a = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "floorplane_b":
-                            floorplane_b = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            floorplane_b = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "floorplane_c":
-                            floorplane_c = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            floorplane_c = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "floorplane_d":
-                            floorplane_d = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            floorplane_d = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "lightfloor":
-                            lightfloor = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            lightfloor = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "lightceiling":
-                            lightceiling = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            lightceiling = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "lightfloorabsolute":
-                            lightfloorabsolute = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            lightfloorabsolute = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "lightceilingabsolute":
-                            lightceilingabsolute = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            lightceilingabsolute = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "alphafloor":
-                            alphafloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            alphafloor = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "alphaceiling":
-                            alphaceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            alphaceiling = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "renderstylefloor":
-                            renderstylefloor = chunks[1].Substring(0, chunks[1].Length - 2);
+                            renderstylefloor = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "renderstyleceiling":
-                            renderstyleceiling = chunks[1].Substring(0, chunks[1].Length - 2);
+                            renderstyleceiling = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "gravity":
-                            gravity = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            gravity = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "lightcolor":
-                            lightcolor = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            lightcolor = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "fadecolor":
-                            fadecolor = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            fadecolor = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "desaturation":
-                            desaturation = float.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            desaturation = float.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "silent":
-                            silent = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            silent = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "nofallingdamage":
-                            nofallingdamage = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            nofallingdamage = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "dropactors":
-                            dropactors = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            dropactors = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "norespawn":
-                            norespawn = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            norespawn = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "soundsequence":
-                            soundsequence = chunks[1].Substring(0, chunks[1].Length - 2);
+                            soundsequence = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "hidden":
-                            hidden = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            hidden = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "waterzone":
-                            waterzone = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            waterzone = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "moreids":
-                            moreids = new List<string>((chunks[1].Substring(0, chunks[1].Length - 2)).Split(' '));
+                            moreids = new List<string>((chunks[1].Substring(0, chunks[1].Length - 1)).Split(' '));
                             break;
                         case "damageamount":
-                            damageamount = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            damageamount = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "damagetype":
-                            damagetype = chunks[1].Substring(0, chunks[1].Length - 2);
+                            damagetype = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "damageinterval":
-                            damageinterval = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            damageinterval = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "leakiness":
-                            leakiness = int.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            leakiness = int.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "damageterraineffect":
-                            damageterraineffect = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            damageterraineffect = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "floorterrain":
-                            floorterrain = chunks[1].Substring(0, chunks[1].Length - 2);
+                            floorterrain = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "ceilingterrain":
-                            ceilingterrain = chunks[1].Substring(0, chunks[1].Length - 2);
+                            ceilingterrain = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "portal_ceil_blocksound":
-                            portal_ceil_blocksound = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            portal_ceil_blocksound = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "portal_ceil_disabled":
-                            portal_ceil_disabled = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            portal_ceil_disabled = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "portal_ceil_nopass":
-                            portal_ceil_nopass = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            portal_ceil_nopass = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "portal_ceil_norender":
-                            portal_ceil_norender = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            portal_ceil_norender = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "portal_ceil_overlaytype":
-                            portal_ceil_overlaytype = chunks[1].Substring(0, chunks[1].Length - 2);
+                            portal_ceil_overlaytype = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
                             break;
                         case "portal_floor_blocksound":
-                            portal_floor_blocksound = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            portal_floor_blocksound = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "portal_floor_disabled":
-                            portal_floor_disabled = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            portal_floor_disabled = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "portal_floor_nopass":
-                            portal_floor_nopass = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            portal_floor_nopass = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "portal_floor_norender":
-                            portal_floor_norender = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 2));
+                            portal_floor_norender = bool.Parse(chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                         case "portal_floor_overlaytype":
-                            portal_floor_overlaytype = chunks[1].Substring(0, chunks[1].Length - 2);
+                            portal_floor_overlaytype = chunks[1].Substring(0, chunks[1].Length - 1).Replace("\"", "");
+                            break;
+                        default:
+                            uservars.Add(chunks[0], chunks[1].Substring(0, chunks[1].Length - 1));
                             break;
                     }
                 }
@@ -1401,7 +1412,151 @@ namespace WADParser
         }
     }
 
-    public class Textmap
+    /// <summary>
+    /// Corresponds to TEXTMAP lumps, exposing things, linedefs, sidedefs, vertices and sectors as lists of modifiable objects.
+    /// Note that this implementation assumes you are using the UDMF standard with zdoom additions.
+    /// </summary>
+    public class ZdoomTextmap
     {
+        private List<ThingEntry> things = new List<ThingEntry>();
+        private List<LinedefEntry> linedefs = new List<LinedefEntry>();
+        private List<SidedefEntry> sidedefs = new List<SidedefEntry>();
+        private List<VertexEntry> vertices = new List<VertexEntry>();
+        private List<SectorEntry> sectors = new List<SectorEntry>();
+
+        /// <summary>
+        /// Provides the current list of things in this TEXTMAP.  Be careful if inserting or removing items, this may require you to re-generate lumps that rely on strict ordering, such as SECTINFO.
+        /// </summary>
+        /// <returns>The list of things contained by this TEXTMAP</returns>
+        public List<ThingEntry> GetThingEntries() { return things; }
+
+        /// <summary>
+        /// Provides the current list of linedefs in this TEXTMAP.  Be careful if inserting or removing items, this may require you to re-generate lumps that rely on strict ordering, such as SECTINFO.
+        /// </summary>
+        /// <returns>The list of linedefs contained by this TEXTMAP</returns>
+        public List<LinedefEntry> GetLinedefEntries() { return linedefs; }
+
+        /// <summary>
+        /// Provides the current list of sidedefs in this TEXTMAP.  Be careful if inserting or removing items, this may require you to re-generate lumps that rely on strict ordering, such as SECTINFO.
+        /// </summary>
+        /// <returns>The list of sidedefs contained by this TEXTMAP</returns>
+        public List<SidedefEntry> GetSidedefEntries() { return sidedefs; }
+
+        /// <summary>
+        /// Provides the current list of vertices in this TEXTMAP.  Be careful if inserting or removing items, this may require you to re-generate lumps that rely on strict ordering, such as SECTINFO.
+        /// </summary>
+        /// <returns>The list of vertices contained by this TEXTMAP</returns>
+        public List<VertexEntry> GetVertexEntries() { return vertices; }
+
+        /// <summary>
+        /// Provides the current list of sectors in this TEXTMAP.  Be careful if inserting or removing items, this may require you to re-generate lumps that rely on strict ordering, such as SECTINFO.
+        /// </summary>
+        /// <returns>The list of sectors contained by this TEXTMAP</returns>
+        public List<SectorEntry> GetSectorEntries() { return sectors; }
+
+        public ZdoomTextmap(byte[] rawData)
+        {
+            string converted = Encoding.Default.GetString(rawData);
+            if (converted.Length > 0)
+            {
+                Setup(converted.Split('\n'));
+            }
+        }
+
+        public ZdoomTextmap(string stringIn)
+        {
+            Setup(stringIn.Split('\n'));
+        }
+
+        public ZdoomTextmap(string[] linesIn)
+        {
+            Setup(linesIn);
+        }
+
+        public string WriteString()
+        {
+            string output = "namespace = \"zdoom\";\n";
+            for (int i = 0; i < things.Count; ++i)
+            {
+                output += "\nthing // " + i + "\n{\n" + things[i].Write() + "\n}\n";
+            }
+            for (int i = 0; i < vertices.Count; ++i)
+            {
+                output += "\nvertex // " + i + "\n{\n" + vertices[i].Write() + "\n}\n";
+            }
+            for (int i = 0; i < linedefs.Count; ++i)
+            {
+                output += "\nlinedef // " + i + "\n{\n" + linedefs[i].Write() + "\n}\n";
+            }
+            for (int i = 0; i < sidedefs.Count; ++i)
+            {
+                output += "\nsidedef // " + i + "\n{\n" + sidedefs[i].Write() + "\n}\n";
+            }
+            for (int i = 0; i < sectors.Count; ++i)
+            {
+                output += "\nsector // " + i + "\n{\n" + sectors[i].Write() + "\n}\n";
+            }
+            return output;
+        }
+
+        public byte[] WriteBytes()
+        {
+            return Encoding.Default.GetBytes(WriteString());
+        }
+
+        private void Setup(string[] linesIn)
+        {
+            for (int i = 0; i < linesIn.Length; i++)
+            {
+                string line = linesIn[i];
+                if (line.Length > 0)
+                {
+                    if (line.StartsWith("linedef") ||
+                        line.StartsWith("sidedef") ||
+                        line.StartsWith("vertex") ||
+                        line.StartsWith("sector") ||
+                        line.StartsWith("thing"))
+                    {
+                        string entryType = line.Split(' ')[0];
+                        List<string> entryLines = new List<string>();
+                        ++i;
+
+                        while (i < linesIn.Length)
+                        {
+                            if (!string.IsNullOrEmpty(linesIn[i]) && linesIn[i] != "{")
+                            {
+                                if (linesIn[i] == "}")
+                                {
+                                    switch (entryType)
+                                    {
+                                        case "linedef":
+                                            linedefs.Add(new LinedefEntry(entryLines.ToArray()));
+                                            break;
+                                        case "sidedef":
+                                            sidedefs.Add(new SidedefEntry(entryLines.ToArray()));
+                                            break;
+                                        case "vertex":
+                                            vertices.Add(new VertexEntry(entryLines.ToArray()));
+                                            break;
+                                        case "sector":
+                                            sectors.Add(new SectorEntry(entryLines.ToArray()));
+                                            break;
+                                        case "thing":
+                                            things.Add(new ThingEntry(entryLines.ToArray()));
+                                            break;
+                                    }
+
+                                    break;
+                                }
+                                else
+                                    entryLines.Add(linesIn[i]);
+                            }
+
+                            ++i;
+                        }
+                    }
+                }
+            }
+        }
     }
 }

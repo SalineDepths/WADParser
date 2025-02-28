@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Runtime.Intrinsics;
 using WADParser;
 
 namespace WADParser
@@ -16,6 +17,11 @@ namespace WADParser
             List<LumpEntry> searchResults = parser.FindLumps("MAPINFO");
             List<LumpEntry> searchResults2 = parser.FindLumps("MAPINFO\0\0\0\0");
             string checkName = searchResults[0].Name;
+
+            searchResults = parser.FindLumps("TEXTMAP");
+            ZdoomTextmap textmap = new ZdoomTextmap(searchResults[0].Data);
+            searchResults[0].Data = textmap.WriteBytes();
+            result = parser.Write(Console.ReadLine());
 
             LumpEntry first = parser.GetLumpAt(0);
             LumpEntry last = parser.GetLumpAt(parser.LumpCount - 1);
